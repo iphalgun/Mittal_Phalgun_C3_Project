@@ -66,28 +66,32 @@ class RestaurantTest {
     @Test
     public void adding_item_to_cart_should_increase_the_total_order_value_by_item_price() {
         int cartOrderValue = restaurant.getTotalOrderCartValue();
-        restaurant.addItemtoCart("Sizzling brownie",319);
-        assertEquals(cartOrderValue+319,restaurant.getTotalOrderCartValue());
+        restaurant.addItemsToCart("Sweet corn soup");
+        assertEquals(cartOrderValue+119,restaurant.getTotalOrderCartValue());
     }
 
     @Test
     public void removing_item_from_cart_should_decrease_the_total_order_value_by_item_price() {
+        restaurant.addToMenu("Sizzling brownie",319);
+        restaurant.addItemsToCart("Sweet corn soup", "Vegetable lasagne", "Sizzling brownie");
         int cartOrderValue = restaurant.getTotalOrderCartValue();
-        restaurant.removeItemFromCart("Sizzling brownie",319);
+        restaurant.removeItemFromCart("Sizzling brownie");
         assertEquals(cartOrderValue-319,restaurant.getTotalOrderCartValue());
     }
 
     @Test
     public void adding_item_to_cart_should_increase_the_cart_size_by_1() {
         int cartOrderItems = restaurant.getTotalOrderCartItems();
-        restaurant.addItemtoCart("Sizzling brownie",319);
+        restaurant.addItemsToCart("Sweet corn soup");
         assertEquals(cartOrderItems+1,restaurant.getTotalOrderCartItems());
     }
 
     @Test
     public void removing_item_from_cart_should_decrease_the_cart_size_by_1() {
+        restaurant.addToMenu("Sizzling brownie",319);
+        restaurant.addItemsToCart("Sweet corn soup", "Vegetable lasagne", "Sizzling brownie");
         int cartOrderValue = restaurant.getTotalOrderCartItems();
-        restaurant.removeItemFromCart("Sizzling brownie",319);
+        restaurant.removeItemFromCart("Sizzling brownie");
         assertEquals(cartOrderValue-1,restaurant.getTotalOrderCartItems());
     }
     //<<<<<<<<<<<<<<<<<<<<<<<TOTAL ORDER VALUE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

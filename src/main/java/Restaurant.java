@@ -10,6 +10,7 @@ public class Restaurant {
     public LocalTime closingTime;
     public LocalTime targetTime;
     private List<Item> menu = new ArrayList<Item>();
+    private List<Item> cart = new ArrayList<Item>();
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
@@ -44,6 +45,14 @@ public class Restaurant {
         return null;
     }
 
+    private Item findCartItemByName(String itemName){
+        for(Item item: cart) {
+            if(item.getName().equals(itemName))
+                return item;
+        }
+        return null;
+    }
+
     public void addToMenu(String name, int price) {
         Item newItem = new Item(name,price);
         menu.add(newItem);
@@ -70,4 +79,35 @@ public class Restaurant {
         return name;
     }
 
+    public void addItemsToCart(String... values) {
+        List<String> names = new ArrayList<>();
+        for(String c : values){
+            names.add(c);
+        }
+        for (int i = 0; i < menu.size(); i++) {
+            for (int j = 0; j < names.size(); j++) {
+                if (menu.get(i).getName() == names.get(j)) {
+                    Item newItem = new Item(menu.get(i).getName(),menu.get(i).getPrice());
+                    cart.add(newItem);
+                }
+            }
+        }
+    }
+
+    public void removeItemFromCart(String name) {
+        Item itemToBeRemoved = findCartItemByName(name);
+        cart.remove(itemToBeRemoved);
+    }
+
+    public int getTotalOrderCartValue() {
+        int totalValue = 0;
+        for (int i = 0; i < cart.size(); i++) {
+            totalValue += cart.get(i).getPrice();
+        }
+        return totalValue;
+    }
+
+    public int getTotalOrderCartItems() {
+        return cart.size();
+    }
 }
